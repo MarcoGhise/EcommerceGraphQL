@@ -1,0 +1,32 @@
+enum Status {
+    CONFIRMED,
+    PENDING,
+    CANCELED
+}
+
+type Order {
+    id: ID!
+    amount: Float!
+    tax: Float!
+    status: Status!
+    createdAt: String!
+    mostexpensive(count: Int): [Product]!
+    products: [Product]!
+}
+
+type Product {
+    productId: String!
+    name: String!
+    price: Float!
+    qty: Int!
+}
+
+# The Root Query for the application
+type Query {
+    ordersByStatus(status: Status): [Order]!
+}
+
+# The Root Mutation for the application
+type Mutation {
+    createOrder(status: String, createdAt: String, productsId: [String]) : Order!
+}
